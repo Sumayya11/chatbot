@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
 const port = process.env.PORT || 8000;
-app.use(cors());
+app.use(cors({ origin: "*" }));
 
 // A unique identifier for the given session
 const sessionId = uuid.v4();
