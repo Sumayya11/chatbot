@@ -43,8 +43,3 @@ OR
 - cyclic (server hosting)
 - surge (front-end hosting)
 
-
-## Author
-
-- [@Sumayya11](https://github.com/Sumayya11)
-
