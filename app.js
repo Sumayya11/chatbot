@@ -2,10 +2,14 @@ const dialogflow = require("@google-cloud/dialogflow");
 const uuid = require("uuid");
 const express = require("express");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 const app = express();
 const port = process.env.PORT || 8000;
-const cors = require("cors");
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://chatbot-sumayya.surge.sh",
+  })
+);
 
 // A unique identifier for the given session
 const sessionId = uuid.v4();
