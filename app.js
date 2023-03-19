@@ -17,21 +17,21 @@ app.use(
   })
 );
 
-app.use(function (req, res, next) {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "X-Requested-With,content-type"
-  );
-  res.setHeader("Access-Control-Allow-Credentials", true);
+// app.use(function (req, res, next) {
+//   res.setHeader("Access-Control-Allow-Origin", "*");
+//   res.setHeader(
+//     "Access-Control-Allow-Methods",
+//     "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+//   );
+//   res.setHeader(
+//     "Access-Control-Allow-Headers",
+//     "X-Requested-With,content-type"
+//   );
+//   res.setHeader("Access-Control-Allow-Credentials", true);
 
-  // Pass to next layer of middleware
-  next();
-});
+//   // Pass to next layer of middleware
+//   next();
+// });
 
 app.get("/", (req, res) => {
   res.send("hello from the server");
@@ -51,7 +51,9 @@ app.post("/send-msg", (req, res) => {
 async function runSample(msg, projectId = "appointment-scheduler-lyle") {
   // Create a new session
   const sessionClient = new dialogflow.SessionsClient({
-    keyFilename: "E:/Chatbot/appointment-scheduler-lyle-4c0f350e7400.json",
+    // keyFilename: "E:/Chatbot/appointment-scheduler-lyle-4c0f350e7400.json",
+    keyFilename:
+      "D:/zernoads/chatbot/appointment-scheduler-lyle-4c0f350e7400.json",
   });
   const sessionPath = sessionClient.projectAgentSessionPath(
     projectId,
