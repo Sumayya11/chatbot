@@ -2,15 +2,33 @@ const dialogflow = require("@google-cloud/dialogflow");
 const uuid = require("uuid");
 const express = require("express");
 const bodyParser = require("body-parser");
-const corsAnywhere = require("cors-anywhere");
+const cors = require("cors");
 const app = express();
+const port = process.env.PORT || 8000;
+app.use(
+  cors({
+    origin: "https://chatbot-sumayya.surge.sh",
+  })
+);
 
 // A unique identifier for the given session
 const sessionId = uuid.v4();
 
-// Enable CORS Anywhere middleware
-const cors = corsAnywhere.create();
-app.use(cors);
+// app.use(function (req, res, next) {
+//   res.setHeader("Access-Control-Allow-Origin", "*");
+//   res.setHeader(
+//     "Access-Control-Allow-Methods",
+//     "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+//   );
+//   res.setHeader(
+//     "Access-Control-Allow-Headers",
+//     "X-Requested-With,content-type"
+//   );
+//   res.setHeader("Access-Control-Allow-Credentials", true);
+
+//   // Pass to next layer of middleware
+//   next();
+// });
 
 app.use(
   bodyParser.urlencoded({
@@ -20,6 +38,7 @@ app.use(
 
 app.get("/", (req, res) => {
   res.send("hello from the server");
+  // res.render("index.html");
 });
 
 app.post("/send-msg", (req, res) => {
@@ -69,9 +88,6 @@ async function runSample(msg, projectId = "appointment-scheduler-lyle") {
   return result.fulfillmentText;
 }
 
-// Start the CORS Anywhere proxy server
-const server = corsAnywhere.listen(8080, () => {
-  console.log(
-    `CORS Anywhere proxy server running on port ${server.address().port}`
-  );
+app.listen(port, () => {
+  console.log("running on port " + port);
 });
