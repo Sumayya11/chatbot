@@ -4,9 +4,12 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 const port = process.env.PORT || 8000;
+const cors = require("cors");
 
 // A unique identifier for the given session
 const sessionId = uuid.v4();
+
+app.use(cors());
 
 app.use(
   bodyParser.urlencoded({
