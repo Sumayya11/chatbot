@@ -1,9 +1,7 @@
 
 # Chatbot
 
-A realstate AI Chatbot with web UI
-
-
+web based AI chatbot
 
 ## Run Locally
 
