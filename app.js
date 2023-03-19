@@ -5,17 +5,10 @@ const bodyParser = require("body-parser");
 const app = express();
 const port = process.env.PORT || 8000;
 const cors = require("cors");
+app.use(cors());
 
 // A unique identifier for the given session
 const sessionId = uuid.v4();
-
-app.use(cors());
-
-app.use(
-  bodyParser.urlencoded({
-    extended: false,
-  })
-);
 
 app.use(function (req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -32,6 +25,12 @@ app.use(function (req, res, next) {
   // Pass to next layer of middleware
   next();
 });
+
+app.use(
+  bodyParser.urlencoded({
+    extended: false,
+  })
+);
 
 app.get("/", (req, res) => {
   res.send("hello from the server");
