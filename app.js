@@ -4,37 +4,22 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const corsAnywhere = require("cors-anywhere");
 const app = express();
-const port = process.env.PORT || 8000;
-
-app.use(bodyParser.urlencoded({ extended: false }));
-
-// Start the CORS Anywhere server
-const corsServer = corsAnywhere.createServer({
-  originWhitelist: ["https://chatbot-sumayya.surge.sh"],
-  requireHeader: [],
-  removeHeaders: [],
-});
-
-// Enable CORS on your Express app
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "X-Requested-With,content-type"
-  );
-  res.setHeader("Access-Control-Allow-Credentials", true);
-  next();
-});
 
 // A unique identifier for the given session
 const sessionId = uuid.v4();
 
+// Enable CORS Anywhere middleware
+const cors = corsAnywhere.create();
+app.use(cors);
+
+app.use(
+  bodyParser.urlencoded({
+    extended: false,
+  })
+);
+
 app.get("/", (req, res) => {
-  res.send("Hello from the server");
+  res.send("hello from the server");
 });
 
 app.post("/send-msg", (req, res) => {
@@ -47,7 +32,6 @@ app.post("/send-msg", (req, res) => {
  * Send a query to the dialogflow agent, and return the query result.
  * @param {string} projectId The project to be used
  */
-
 async function runSample(msg, projectId = "appointment-scheduler-lyle") {
   // Create a new session
   const sessionClient = new dialogflow.SessionsClient({
@@ -85,12 +69,9 @@ async function runSample(msg, projectId = "appointment-scheduler-lyle") {
   return result.fulfillmentText;
 }
 
-// Start the Express app and listen on the port
-app.listen(port, () => {
-  console.log("Server running on port " + port);
-});
-
-// Listen on a different port for CORS Anywhere requests
-corsServer.listen(8080, () => {
-  console.log("CORS Anywhere server running on port 8080");
+// Start the CORS Anywhere proxy server
+const server = corsAnywhere.listen(8080, () => {
+  console.log(
+    `CORS Anywhere proxy server running on port ${server.address().port}`
+  );
 });
