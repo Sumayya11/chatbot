@@ -89,8 +89,9 @@ function serverMessage(response2) {
   }, 100 + Math.random() * 20 * 100);
 }
 
-function fetchmsg() {
-  var url = "http://localhost:8000/send-msg";
+async function fetchmsg() {
+  var url = "https://tame-plum-mite-ring.cyclic.app/send-msg";
+  // var url = "http://localhost:8000/send-msg";
 
   const data = new URLSearchParams();
   for (const pair of new FormData(document.getElementById("mymsg"))) {
@@ -105,7 +106,6 @@ function fetchmsg() {
   })
     .then((res) => res.json())
     .then((response) => {
-      // console.log(response);
       serverMessage(response.Reply);
       speechSynthesis.speak(new SpeechSynthesisUtterance(response.Reply));
     })
