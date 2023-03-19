@@ -5,11 +5,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
 const port = process.env.PORT || 8000;
-app.use(
-  cors({
-    origin: "https://chatbot-sumayya.surge.sh",
-  })
-);
+app.use(cors());
 
 // A unique identifier for the given session
 const sessionId = uuid.v4();
