@@ -50,9 +50,7 @@ app.post("/send-msg", (req, res) => {
 async function runSample(msg, projectId = "appointment-scheduler-lyle") {
   // Create a new session
   const sessionClient = new dialogflow.SessionsClient({
-    // keyFilename: "E:/Chatbot/appointment-scheduler-lyle-4c0f350e7400.json",
-    keyFilename:
-      "D:/zernoads/chatbot/appointment-scheduler-lyle-4c0f350e7400.json",
+    keyFilename: "E:/Chatbot/appointment-scheduler-lyle-4c0f350e7400.json",
   });
   const sessionPath = sessionClient.projectAgentSessionPath(
     projectId,
